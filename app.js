@@ -18,9 +18,9 @@ class TodoForm {
             this.addNewTodo();
         });
         this.$listTodo.addEventListener("click", (e) => {
-            console.log(e);
-            console.log(e.target.tagName === "I" &&);
-            console.log(e.currentTarget);
+            // console.log(e);
+            // console.log(e.target.tagName === "I" &&);
+            // console.log(e.currentTarget);
         })
     }
 
@@ -28,9 +28,13 @@ class TodoForm {
         const promise = this.fetchTodoList();
         promise.then(response => {
             response.data.forEach((todo, index) => {
+                let checked = "";
+                if (todo.completed) {
+                    checked = "checked"
+                }
                 let listItem = document.createElement('li');
                 listItem.innerHTML = `<div class="d-flex align-items-center">
-                                            <input class="form-check-input me-2" type="checkbox" value="" aria-label="..." />
+                                            <input class="form-check-input me-2" type="checkbox" value="" aria-label="..." ${checked} />
                                             ${todo.title}
                                         </div>
                                         <a href="#" data-mdb-toggle="tooltip" title="Remove item">
@@ -47,7 +51,7 @@ class TodoForm {
     addNewTodo() {
         let title = this.$todoInput.value;
         let listItem = document.createElement('li');
-        listItem.innerHTML = ` <div class="d-flex align-items-center">
+        listItem.innerHTML = `<div class="d-flex align-items-center">
                                     <input class="form-check-input me-2" type="checkbox" value="" aria-label="..." />
                                     ${title}
                                 </div>
@@ -61,9 +65,16 @@ class TodoForm {
 
     async fetchTodoList() {
         try {
-            return await axios.get("https://jsonplaceholder.typicode.com/posts");
+            return await axios.get("https://jsonplaceholder.typicode.com/todos");
         } catch (error) {
             throw new Error(error);
         }
     }
 }
+
+/// build list todo -> async await (promise) => gọi api "https://jsonplaceholder.typicode.com/posts"
+
+// addNewTodo => cho todo mới nhất lên trên đầu
+
+
+// nâng cao hơn => làm remove todo
